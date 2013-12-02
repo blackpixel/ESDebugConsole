@@ -19,6 +19,7 @@
 #import "ESDebugConsole.h"
 #import <asl.h>
 #import "ESConsoleEntry.h"
+#import "ESDebugConsole+iOS_GUI.h"
 
 //#define ASL_KEY_TIME      "Time"
 //#define ASL_KEY_HOST      "Host"
