@@ -18,6 +18,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ESDebugConsole+iOS_GUI.h"
+#import "ESDebugConsole+iOS_Mail.h"
+
 #import "ESConsoleEntry.h"
 
 @interface ESDebugConsole ()
@@ -202,7 +204,7 @@
 		ESDebugAppListTableViewController *tvc = [ESDebugAppListTableViewController new];
 		if (!CGSizeEqualToSize(self.consoleSizeInPopover, CGSizeZero))
 		{
-			tvc.contentSizeForViewInPopover = self.consoleSizeInPopover;
+			tvc.preferredContentSize = self.consoleSizeInPopover;
 		}
 		_navigationController = [[UINavigationController alloc] initWithRootViewController:tvc];
 	}
@@ -312,7 +314,7 @@
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	ESDebugTableViewController *tvc = [ESDebugTableViewController new];
-    tvc.contentSizeForViewInPopover = self.contentSizeForViewInPopover;
+    tvc.preferredContentSize = self.preferredContentSize;
 	NSString *applicationIdentifier = nil;
 	switch (indexPath.row) {
 		case 0:
@@ -436,7 +438,7 @@
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	ESDebugDetailViewController *detailViewController = [ESDebugDetailViewController new];
-    detailViewController.contentSizeForViewInPopover = self.contentSizeForViewInPopover;
+    detailViewController.preferredContentSize = self.preferredContentSize;
 	detailViewController.textView.text = [NSString stringWithFormat:@"%@", self.applicationLogs[indexPath.row]];
 	[self.navigationController pushViewController:detailViewController animated:YES];
 }
@@ -445,7 +447,15 @@
 {
 	// This assumes that the table view cells content view is as wide as the actual table,
 	// which isn't necessarily true, but works fine here
-	CGSize size = [[self.applicationLogs[indexPath.row] shortMessage] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(self.tableView.frame.size.width - 20, 10000) lineBreakMode:NSLineBreakByWordWrapping];
+	NSString *text = [self.applicationLogs[indexPath.row] shortMessage];
+	UIFont *font = [UIFont systemFontOfSize:17];
+	CGSize constraintedSize = CGSizeMake(self.tableView.frame.size.width - 20, 10000);
+	
+	NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    [paragraph setLineBreakMode:NSLineBreakByWordWrapping];
+    NSDictionary *attributes = @{NSFontAttributeName: font, NSParagraphStyleAttributeName: paragraph};
+    CGSize size = [text boundingRectWithSize:constraintedSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+
 	// add in the padding for the applicationIdentifier and date
 	size.height += 60;
 	return size.height;
@@ -527,7 +537,14 @@
 	CGSize size = CGSizeMake(self.contentView.frame.size.width - 20, 18);
 	if (self.messageLabel.text.length)
 	{
-		size = [self.messageLabel.text sizeWithFont:[self.messageLabel font] constrainedToSize:CGSizeMake(size.width, 10000) lineBreakMode:NSLineBreakByWordWrapping];
+		NSString *text = self.messageLabel.text;
+		UIFont *font = [self.messageLabel font];
+		CGSize constraintedSize = CGSizeMake(size.width, 10000);
+		
+		NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+		[paragraph setLineBreakMode:NSLineBreakByWordWrapping];
+		NSDictionary *attributes = @{NSFontAttributeName: font, NSParagraphStyleAttributeName: paragraph};
+		size = [text boundingRectWithSize:constraintedSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
 	}
 	self.messageLabel.frame = CGRectMake(10, 30, size.width, size.height);
 	self.dateLabel.frame = CGRectMake(10, CGRectGetMaxY(self.messageLabel.frame), self.contentView.frame.size.width - 20, 18);
