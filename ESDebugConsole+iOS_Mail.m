@@ -107,8 +107,6 @@
             break;
         case MFMailComposeResultFailed:
             break;
-        default:
-            break;
     }
 	controller.delegate = nil;
 	[controller dismissViewControllerAnimated:YES completion:nil];

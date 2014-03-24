@@ -78,7 +78,7 @@ NSString *const kESDebugConsoleAllLogsKey = @"ESDebugConsoleAllLogsKey";
 + (NSDictionary *)getConsole
 {
 	aslmsg q, m;
-	int i;
+	uint32_t i;
 	const char *key, *val;
 	NSMutableDictionary *consoleLog = [NSMutableDictionary new];
 	@autoreleasepool {

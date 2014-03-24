@@ -283,7 +283,7 @@
 {
 	if (self.allApps)
 	{
-		return self.allApps.count + 2;
+		return (NSInteger)self.allApps.count + 2;
 	}
 	return 0;
 }
@@ -304,7 +304,7 @@
 			cell.textLabel.text = @"Current";
 			break;
 		default:
-			cell.textLabel.text = [self.allApps objectAtIndex:indexPath.row-2];
+			cell.textLabel.text = [self.allApps objectAtIndex:(NSUInteger)indexPath.row-2];
 			break;
 	}
 	return cell;
@@ -324,7 +324,7 @@
 			applicationIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:(id)kCFBundleIdentifierKey];
 			break;
 		default:
-			applicationIdentifier = self.allApps[indexPath.row-2];
+			applicationIdentifier = self.allApps[(NSUInteger)indexPath.row-2];
 			break;
 	}
 	NSParameterAssert(applicationIdentifier);
@@ -334,13 +334,6 @@
 		tvc.applicationIdentifier = applicationIdentifier;
 		[self.navigationController pushViewController:tvc animated:YES];
 	}
-}
-
-#pragma mark - 
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-	return YES;
 }
 
 #pragma mark - Email
@@ -416,7 +409,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [self.applicationLogs count];
+	return (NSInteger)[self.applicationLogs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -427,7 +420,7 @@
 	{
 		cell = [[ESDebugTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
 	}
-	ESConsoleEntry *entry = self.applicationLogs[indexPath.row];
+	ESConsoleEntry *entry = self.applicationLogs[(NSUInteger)indexPath.row];
 	cell.applicationIdentifierLabel.text = entry.applicationIdentifier;
 	cell.messageLabel.text = entry.shortMessage;
 	cell.dateLabel.text = [entry.date description];
@@ -439,7 +432,7 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	ESDebugDetailViewController *detailViewController = [ESDebugDetailViewController new];
     detailViewController.preferredContentSize = self.preferredContentSize;
-	detailViewController.textView.text = [NSString stringWithFormat:@"%@", self.applicationLogs[indexPath.row]];
+	detailViewController.textView.text = [NSString stringWithFormat:@"%@", self.applicationLogs[(NSUInteger)indexPath.row]];
 	[self.navigationController pushViewController:detailViewController animated:YES];
 }
 
@@ -447,7 +440,7 @@
 {
 	// This assumes that the table view cells content view is as wide as the actual table,
 	// which isn't necessarily true, but works fine here
-	NSString *text = [self.applicationLogs[indexPath.row] shortMessage];
+	NSString *text = [self.applicationLogs[(NSUInteger)indexPath.row] shortMessage];
 	UIFont *font = [UIFont systemFontOfSize:17];
 	CGSize constraintedSize = CGSizeMake(self.tableView.frame.size.width - 20, 10000);
 	
@@ -459,13 +452,6 @@
 	// add in the padding for the applicationIdentifier and date
 	size.height += 60;
 	return size.height;
-}
-
-#pragma mark - 
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-	return YES;
 }
 
 #pragma mark - AutoRefresh
@@ -564,13 +550,6 @@
 	[self.view addSubview:self.textView];
 }
 
-- (void)viewDidUnload
-{
-	[super viewDidUnload];
-	
-	self.textView = nil;
-}
-
 #pragma mark -
 
 - (UITextView *)textView
@@ -582,13 +561,6 @@
 		_textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	}
 	return _textView;
-}
-
-#pragma mark - 
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-	return YES;
 }
 
 @end
