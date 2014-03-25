@@ -17,6 +17,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 #define CATEGORY_IVAR __attribute__((unused))
 

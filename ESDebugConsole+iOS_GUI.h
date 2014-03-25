@@ -16,6 +16,7 @@
 //  limitations under the License.
 //
 
+#import <UIKit/UIKit.h>
 #import "ESDebugConsole.h"
 
 @interface ESDebugConsole (iOS_GUI)
