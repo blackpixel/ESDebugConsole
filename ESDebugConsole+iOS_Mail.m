@@ -78,6 +78,12 @@
 
 #pragma mark - 
 
+- (BOOL)canSendEmail
+{
+	MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+	return (picker != nil);
+}
+
 - (void)sendConsoleAsEmail
 {
 	MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];

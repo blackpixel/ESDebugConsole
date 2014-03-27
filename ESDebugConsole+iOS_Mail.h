@@ -39,6 +39,7 @@
 /**
  * 
  */
+- (BOOL)canSendEmail;
 - (void)sendConsoleAsEmail;
 
 @end

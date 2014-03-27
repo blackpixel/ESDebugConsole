@@ -263,7 +263,16 @@
 	}
 	if ([[ESDebugConsole sharedDebugConsole] respondsToSelector:@selector(sendConsoleAsEmail)])
 	{
-		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:@"Email Logs" style:UIBarButtonItemStyleBordered target:self action:@selector(email:)];
+		BOOL canSendEmail = NO;
+		if ([[ESDebugConsole sharedDebugConsole] respondsToSelector:@selector(canSendEmail)])
+		{
+			canSendEmail = [[ESDebugConsole sharedDebugConsole] canSendEmail];
+		}
+		
+		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:(canSendEmail ? @"Email Logs" : @"Configure an email account") style:UIBarButtonItemStyleBordered target:self action:@selector(email:)];
+		email.enabled = canSendEmail;
+		
+		
 		if (ISPAD)
 		{
 			self.navigationItem.rightBarButtonItem = email;
@@ -277,7 +286,7 @@
 	[self refresh:nil];
 }
 
-#pragma mark - 
+#pragma mark -
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -392,7 +401,14 @@
 	UIBarButtonItem *spaceRight = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 	if ([[ESDebugConsole sharedDebugConsole] respondsToSelector:@selector(sendConsoleAsEmail)])
 	{
-		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:@"Email Logs" style:UIBarButtonItemStyleBordered target:self action:@selector(email:)];
+		BOOL canSendEmail = NO;
+		if ([[ESDebugConsole sharedDebugConsole] respondsToSelector:@selector(canSendEmail)])
+		{
+			canSendEmail = [[ESDebugConsole sharedDebugConsole] canSendEmail];
+		}
+		
+		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:(canSendEmail ? @"Email Logs" : @"Configure an email account") style:UIBarButtonItemStyleBordered target:self action:@selector(email:)];
+		email.enabled = canSendEmail;
 		self.navigationItem.rightBarButtonItem = email;
 	}
 	self.toolbarItems = @[spaceLeft, autoRefreshLabelButton, autoRefreshSwitchButton, spaceRight];
