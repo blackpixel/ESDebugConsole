@@ -85,7 +85,7 @@ NSString *const kESDebugConsoleAllLogsKey = @"ESDebugConsoleAllLogsKey";
 		q = asl_new(ASL_TYPE_QUERY);
 		NSMutableArray *allLogs = [NSMutableArray new];
 		aslresponse r = asl_search(NULL, q);
-		while (NULL != (m = aslresponse_next(r)))
+		while (NULL != (m = asl_next(r)))
 		{
 			NSMutableDictionary *tmpDict = [NSMutableDictionary dictionary];
 			for (i = 0; (NULL != (key = asl_key(m, i))); i++)
@@ -114,7 +114,7 @@ NSString *const kESDebugConsoleAllLogsKey = @"ESDebugConsoleAllLogsKey";
 				[allLogs addObject:entry];
 			}
 		}
-		aslresponse_free(r);
+		asl_release(r);
 		for (NSMutableArray *logEntries in [consoleLog allValues])
 		{
 			[logEntries sortUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO], nil]];
