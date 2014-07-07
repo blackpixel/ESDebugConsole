@@ -33,6 +33,12 @@
 
 NSString *const kESDebugConsoleAllLogsKey = @"ESDebugConsoleAllLogsKey";
 
+// The iOS 7 version of ASL has no ASL_API_VERSION constant defined, and needs different names for these two methods
+#ifndef ASL_API_VERSION
+#define asl_next(r) aslresponse_next(r)
+#define asl_release(r) aslresponse_free(r)
+#endif
+
 @interface ESDebugConsole ()
 @end
 
