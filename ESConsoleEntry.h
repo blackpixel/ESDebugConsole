@@ -20,13 +20,13 @@
 
 @interface ESConsoleEntry : NSObject
 
-@property (nonatomic, retain) NSString *applicationIdentifier;
-@property (nonatomic, retain) NSString *message;
-@property (nonatomic, retain) NSDate *date;
+@property (nonatomic, copy) NSString *applicationIdentifier;
+@property (nonatomic, copy) NSString *message;
+@property (nonatomic, strong) NSDate *date;
 
 @end
 
 @interface ESConsoleEntry ()
-@property (nonatomic, retain) NSString *shortMessage;
+@property (nonatomic, copy) NSString *shortMessage;
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 @end

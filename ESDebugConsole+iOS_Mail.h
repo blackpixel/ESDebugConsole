@@ -23,19 +23,19 @@
 /**
  * 
  */
-@property (nonatomic) NSArray *recipients;
+@property (nonatomic, copy) NSArray *recipients;
 /**
  * 
  */
-@property (nonatomic) NSString *subject;
+@property (nonatomic, copy) NSString *subject;
 /**
  * 
  */
-@property (nonatomic) NSString *message;
+@property (nonatomic, copy) NSString *message;
 /**
  * 
  */
-@property (nonatomic) NSData *attachment;
+@property (nonatomic, copy) NSData *attachment;
 /**
  * 
  */

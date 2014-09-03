@@ -255,7 +255,7 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.title = @"App List";
+	self.title = NSLocalizedString(@"App List", @"ESDebugConsole App List Title");
 	if (ISPHONE)
 	{
 		UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
@@ -307,10 +307,10 @@
 	}
 	switch (indexPath.row) {
 		case 0:
-			cell.textLabel.text = @"All";
+			cell.textLabel.text = NSLocalizedString(@"All", @"All Apps");
 			break;
 		case 1:
-			cell.textLabel.text = @"Current";
+			cell.textLabel.text = NSLocalizedString(@"Current", @"Current App");
 			break;
 		default:
 			cell.textLabel.text = [self.allApps objectAtIndex:(NSUInteger)indexPath.row-2];
@@ -386,10 +386,10 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.title = @"Console";
+	self.title = NSLocalizedString(@"Console", @"ESDebugConsole console title");
 	UIBarButtonItem *spaceLeft = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 	UILabel *autoRefreshLabel = [UILabel new];
-	autoRefreshLabel.text = @"AutoRefresh: ";
+	autoRefreshLabel.text = NSLocalizedString(@"AutoRefresh: ", @"AutoRefreshLabel title");
 	autoRefreshLabel.backgroundColor = [UIColor clearColor];
 	autoRefreshLabel.font = [UIFont boldSystemFontOfSize:14];
 	autoRefreshLabel.textColor = [UIColor whiteColor];
@@ -407,7 +407,7 @@
 			canSendEmail = [[ESDebugConsole sharedDebugConsole] canSendEmail];
 		}
 		
-		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:(canSendEmail ? @"Email Logs" : @"Configure an email account") style:UIBarButtonItemStyleBordered target:self action:@selector(email:)];
+		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:(canSendEmail ? NSLocalizedString(@"Email Logs", @"send email title") : NSLocalizedString(@"Configure an email account", @"configure email account button title")) style:UIBarButtonItemStyleBordered target:self action:@selector(email:)];
 		email.enabled = canSendEmail;
 		self.navigationItem.rightBarButtonItem = email;
 	}
@@ -561,7 +561,7 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.title = @"Details";
+	self.title = NSLocalizedString(@"Details", @"ESDebugConsole details title");
 	self.textView.frame = self.view.bounds;
 	[self.view addSubview:self.textView];
 }

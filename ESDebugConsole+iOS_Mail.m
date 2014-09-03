@@ -21,60 +21,10 @@
 #import <MessageUI/MessageUI.h>
 
 @implementation ESDebugConsole (iOS_Mail)
-
-#pragma mark - Accessors
-
-- (NSArray *)recipients
-{
-	return _recipients;
-}
-
-- (void)setRecipients:(NSArray *)recipients
-{
-	if (_recipients != recipients)
-	{
-		_recipients = recipients;
-	}
-}
-
-- (NSString *)subject
-{
-	return _subject;
-}
-
-- (void)setSubject:(NSString *)subject
-{
-	if (_subject != subject)
-	{
-		_subject = subject;
-	}
-}
-
-- (NSString *)message
-{
-	return _message;
-}
-
-- (void)setMessage:(NSString *)message
-{
-	if (_message != message)
-	{
-		_message = message;
-	}
-}
-
-- (NSData *)attachment
-{
-	return _attachment;
-}
-
-- (void)setAttachment:(NSData *)attachment
-{
-	if (_attachment != attachment)
-	{
-		_attachment = attachment;
-	}
-}
+@dynamic message;
+@dynamic recipients;
+@dynamic attachment;
+@dynamic subject;
 
 #pragma mark - 
 
