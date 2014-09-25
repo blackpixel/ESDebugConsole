@@ -269,7 +269,7 @@
 			canSendEmail = [[ESDebugConsole sharedDebugConsole] canSendEmail];
 		}
 		
-		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:(canSendEmail ? @"Email Logs" : @"Configure an email account") style:UIBarButtonItemStyleBordered target:self action:@selector(email:)];
+		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:(canSendEmail ? @"Email Logs" : @"Configure an email account") style:UIBarButtonItemStylePlain target:self action:@selector(email:)];
 		email.enabled = canSendEmail;
 		
 		
@@ -407,7 +407,7 @@
 			canSendEmail = [[ESDebugConsole sharedDebugConsole] canSendEmail];
 		}
 		
-		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:(canSendEmail ? NSLocalizedString(@"Email Logs", @"send email title") : NSLocalizedString(@"Configure an email account", @"configure email account button title")) style:UIBarButtonItemStyleBordered target:self action:@selector(email:)];
+		UIBarButtonItem *email = [[UIBarButtonItem alloc] initWithTitle:(canSendEmail ? NSLocalizedString(@"Email Logs", @"send email title") : NSLocalizedString(@"Configure an email account", @"configure email account button title")) style:UIBarButtonItemStylePlain target:self action:@selector(email:)];
 		email.enabled = canSendEmail;
 		self.navigationItem.rightBarButtonItem = email;
 	}
